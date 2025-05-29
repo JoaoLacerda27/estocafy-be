@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.SourceSetContainer
+
 plugins {
 	java
 	id("org.springframework.boot") version "3.5.0"
@@ -9,13 +11,7 @@ version = "0.0.1-SNAPSHOT"
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
-}
-
-configurations {
-	compileOnly {
-		extendsFrom(configurations.annotationProcessor.get())
+		languageVersion.set(JavaLanguageVersion.of(21))
 	}
 }
 
@@ -24,20 +20,57 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-batch")
+	// Spring Boot Starters
+	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
-	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-validation") // Bean Validation
+
+	// Flyway migrations
+	implementation("org.flywaydb:flyway-core")
+	implementation("org.flywaydb:flyway-database-postgresql")
+
+	// Lombok
 	compileOnly("org.projectlombok:lombok")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("org.postgresql:postgresql")
-	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
+
+	// PostgreSQL driver
+	runtimeOnly("org.postgresql:postgresql")
+
+	// DevTools
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+	// QueryDSL
+	implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
+	implementation("com.querydsl:querydsl-core:5.1.0")
+	annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
+	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+	annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+
+	// Tests
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.batch:spring-batch-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+val querydslDir = "$buildDir/generated/querydsl"
+
+// Register generated sources folder
+val sourceSets = extensions.getByName("sourceSets") as SourceSetContainer
+sourceSets["main"].java.srcDir(querydslDir)
+
+tasks.withType<JavaCompile> {
+	// Tell JDK compile where to put annotation-generated sources
+	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+	// Ensure annotation-processor classpath includes QueryDSL and Jakarta APIs
+	options.annotationProcessorPath = configurations.annotationProcessor.get()
+	// Invoke the JPA processor for QueryDSL
+	options.compilerArgs.addAll(
+		listOf(
+			"-processor",
+			"com.querydsl.apt.jpa.JPAAnnotationProcessor"
+		)
+	)
 }
 
 tasks.withType<Test> {
