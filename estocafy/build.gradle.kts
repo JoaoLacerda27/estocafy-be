@@ -20,6 +20,10 @@ repositories {
 }
 
 dependencies {
+	constraints {
+		implementation("org.springframework:spring-webmvc:6.0.13") // versão compatível com Spring Boot 3.5.0
+	}
+
 	// Spring Boot Starters
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -47,6 +51,17 @@ dependencies {
 	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
 	annotationProcessor("jakarta.annotation:jakarta.annotation-api")
 
+	//JSONWebToken
+	implementation ("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
+	//ModelMapper
+	implementation ("org.modelmapper:modelmapper:3.0.0")
+
+	//Swagger
+	implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+
 	// Tests
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
@@ -60,17 +75,8 @@ val sourceSets = extensions.getByName("sourceSets") as SourceSetContainer
 sourceSets["main"].java.srcDir(querydslDir)
 
 tasks.withType<JavaCompile> {
-	// Tell JDK compile where to put annotation-generated sources
 	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
-	// Ensure annotation-processor classpath includes QueryDSL and Jakarta APIs
 	options.annotationProcessorPath = configurations.annotationProcessor.get()
-	// Invoke the JPA processor for QueryDSL
-	options.compilerArgs.addAll(
-		listOf(
-			"-processor",
-			"com.querydsl.apt.jpa.JPAAnnotationProcessor"
-		)
-	)
 }
 
 tasks.withType<Test> {
