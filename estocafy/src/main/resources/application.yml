@@ -6,3 +6,7 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
     validate-on-migrate: true
+jwt:
+  secret: haxoUvBCr23YtZKxWEr8dPvOWisb30S9BWtFXAe6R2E
+  expiration: 86400000
+  refresh-expiration: 604800000
