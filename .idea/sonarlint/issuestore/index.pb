@@ -1,0 +1,19 @@
+
+a
+1estocafy/gradle/wrapper/gradle-wrapper.properties,7\5\75580f0b801c43650f25cdc1ae1a2dcc924a164e
+[
++estocafy/src/main/resources/application.yml,e\e\eeb52bd1e5a38380c9bf73eb1c3ada477a9c5abd
+`
+0estocafy/src/main/resources/application-prod.yml,4\d\4d6c64055c0157c831b53d0f5ac9d4aa25c3b709
+_
+/estocafy/src/main/resources/application-dev.yml,0\b\0b95caa1e1c54aaff9330e1811a250c1c87aa896
+P
+ estocafy/docker-compose.prod.yml,b\9\b9e01f23baa1cce0661345b4e47cf29813dcf22b
+I
+estocafy/build.gradle.kts,b\8\b843371378bef2ee1d60785be434153a1d6c5c1d
+C
+estocafy/Dockerfile,f\a\fa9e35b884a09e3612a256e78e18f5ab2991e95e
+O
+estocafy/docker-compose.dev.yml,3\c\3cffcf6c329f8ca200150f116d485c116abe5723
+q
+Aestocafy/src/main/java/com/main/estocafy/EstocafyApplication.java,b\c\bc341443d23b4a5432794715d1504230b5d4b25f
