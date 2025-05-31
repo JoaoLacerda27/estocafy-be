@@ -54,6 +54,7 @@ public class UserService extends ServiceBase {
     public UserDTO update(UUID id, @NotNull UserDTO dto) {
         User user = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(getMessage("user.not.found")));
+
         user.setEmail(StringUtils.hasText(dto.getEmail())  ? dto.getEmail() : user.getEmail());
         user.setName(StringUtils.hasText(dto.getName()) ? dto.getName() : user.getName());
         user.setPhone(StringUtils.hasText(dto.getPhone()) ? dto.getPhone() : user.getPhone());
