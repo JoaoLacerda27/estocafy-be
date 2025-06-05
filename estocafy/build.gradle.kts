@@ -60,7 +60,7 @@ dependencies {
 	implementation ("org.modelmapper:modelmapper:3.0.0")
 
 	//Swagger
-	implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
 
 	// Tests
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
