@@ -38,6 +38,8 @@ public class SecurityConfiguration {
                                 "/webjars/**",
                                 "/v1/auth/**"
                         ).permitAll()
+                        .requestMatchers("/v1/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/user/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> httpBasic.disable());
