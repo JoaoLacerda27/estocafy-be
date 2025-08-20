@@ -12,10 +12,10 @@ import java.util.UUID;
 @Tag(name = "Users", description = "API para controle de usuários")
 public interface UserDoc {
     @Operation(summary = "Cria um novo usuário")
-    ResponseEntity<UserResponse> create(UserRequest user);
+    ResponseEntity<UserResponse> create(UserRequest request);
 
     @Operation(summary = "Atualiza um usuário")
-    ResponseEntity<UserResponse> update(UUID id, UserRequest user);
+    ResponseEntity<UserResponse> update(UUID id, UserRequest request);
 
     @Operation(summary = "Deleta um usuário")
     ResponseEntity<Void> delete(UUID id);
