@@ -9,6 +9,8 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.main.estocafy.shared.model.ModelBase;
+
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +26,7 @@ import java.util.UUID;
         uniqueConstraints = {
                 @UniqueConstraint(name = "UC_USER__EMAIL", columnNames = "email")
         })
-public class User {
+public class User extends ModelBase {
 
     @Id
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
@@ -32,10 +34,6 @@ public class User {
     @GenericGenerator(name = "uuid2")
     @NotNull
     protected UUID id;
-
-    @CreationTimestamp
-    @Column
-    private Instant createdAt;
 
     @NotBlank
     @Size(max = 120)
@@ -66,4 +64,16 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "plan_id", foreignKey = @ForeignKey(name = "FK_USER__PLAN_ID"))
     private Plan plan;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", nullable = false)
+    private Tenant tenant;
+
+    @ManyToMany
+    @JoinTable(
+        name = "user_branches",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "branch_id")
+    )
+    private Set<Branch> branches = new HashSet<>();
 }

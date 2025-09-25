@@ -8,7 +8,11 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.main.estocafy.shared.model.ModelBase;
+
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -18,17 +22,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Table(name = "products")
-public class Product {
+public class Product extends ModelBase {
     @Id
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.AUTO)
     @GenericGenerator(name = "uuid2")
     @NotNull
     protected UUID id;
-
-    @CreationTimestamp
-    @Column
-    private Instant createdAt;
 
     @NotBlank
     @Size(max = 200)
@@ -44,4 +44,19 @@ public class Product {
     @Size(max = 150)
     @Column(nullable = false)
     private String barcode;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "FK_PRODUCT__CATEGORY_ID"))
+    private Category category;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_suppliers",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "supplier_id")
+    )
+    private Set<Supplier> suppliers = new HashSet<>();
+
+    @Column
+    private Long minQuantity = 0L;
 }

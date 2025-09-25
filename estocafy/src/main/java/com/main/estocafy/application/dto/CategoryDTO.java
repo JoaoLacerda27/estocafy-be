@@ -1,20 +1,16 @@
 package com.main.estocafy.application.dto;
 
-import java.util.Set;
-
 import com.main.estocafy.shared.dtos.DtoBase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @AllArgsConstructor
-public class ProductDTO extends DtoBase {
+public class CategoryDTO extends DtoBase {
     private String name;
-    private String skuCode;
-    private String barcode;
-    private CategoryDTO category;
-    private Set<SupplierDTO> suppliers;
-    private Long minQuantity;
+    private String description;
 }

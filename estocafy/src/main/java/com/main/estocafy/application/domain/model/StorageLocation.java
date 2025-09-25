@@ -8,6 +8,8 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.main.estocafy.shared.model.ModelBase;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -21,17 +23,13 @@ import java.util.UUID;
         uniqueConstraints = {
                 @UniqueConstraint(name = "UC_STORAGE_LOCATION__CODE", columnNames = "code")
         })
-public class StorageLocation {
+public class StorageLocation extends ModelBase {
     @Id
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.AUTO)
     @GenericGenerator(name = "uuid2")
     @NotNull
     protected UUID id;
-
-    @CreationTimestamp
-    @Column
-    private Instant createdAt;
 
     @NotBlank
     @Size(max = 200)

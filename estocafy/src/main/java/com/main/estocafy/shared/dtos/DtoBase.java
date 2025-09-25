@@ -15,6 +15,9 @@ import java.util.UUID;
 public abstract class DtoBase {
     private UUID id;
     private Instant createdAt;
+    private Instant updatedAt;
+    private UUID createdBy;
+    private UUID updatedBy;
 
     public DtoBase(UUID id) {
         this.id = id;

@@ -1,6 +1,8 @@
 package com.main.estocafy.application.domain.model;
 
 import com.main.estocafy.application.domain.enums.PlanType;
+import com.main.estocafy.shared.model.ModelBase;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -18,7 +20,7 @@ import java.util.UUID;
         uniqueConstraints = {
                 @UniqueConstraint(name = "UC_PLAN__TYPE", columnNames = "type")
         })
-public class Plan {
+public class Plan extends ModelBase {
     @Id
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.AUTO)

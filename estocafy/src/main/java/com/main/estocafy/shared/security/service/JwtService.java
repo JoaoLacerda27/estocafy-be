@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.main.estocafy.shared.security.model.UserPrincipal;
+
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
@@ -29,7 +31,14 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        Map<String, Object> claims = new HashMap<>();
+
+        if (userDetails instanceof UserPrincipal up) {
+            claims.put("tenantId", up.getTenantId());
+            claims.put("branchIds", up.getBranchIds()); 
+        }
+        
+        return generateToken(claims, userDetails);
     }
 
     private Key getSigningKey() {
@@ -40,6 +49,12 @@ public class JwtService {
     public String generateRefreshToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("type", "refresh");
+
+        if (userDetails instanceof UserPrincipal up) {
+            claims.put("tenantId", up.getTenantId());
+            claims.put("branchIds", up.getBranchIds());
+        }
+        
         return generateToken(claims, userDetails);
     }
 

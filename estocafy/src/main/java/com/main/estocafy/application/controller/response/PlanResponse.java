@@ -9,5 +9,5 @@ import java.util.UUID;
 public class PlanResponse {
     private UUID id;
     private PlanType type;
-    private boolean ativo;
+    private boolean active;
 }

@@ -5,10 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.ParamDef;
 
-import java.time.Instant;
+import com.main.estocafy.shared.model.ModelBase;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -18,18 +21,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FilterDef(name = "tenantFilter", parameters = @ParamDef(name = "tenantId", type = String.class))
+@Filter(name = "tenantFilter", condition = "branch_id IN (SELECT b.id FROM branch b WHERE b.tenant_id = :tenantId)")
 @Table(name = "products_stock")
-public class ProductStock {
+public class ProductStock extends ModelBase {
     @Id
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.AUTO)
     @GenericGenerator(name = "uuid2")
     @NotNull
     protected UUID id;
-
-    @CreationTimestamp
-    @Column
-    private Instant createdAt;
 
     @NotBlank
     @Size(max = 200)
@@ -61,4 +62,8 @@ public class ProductStock {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "storage_location_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_STOCK__STORAGE_LOCATION_ID"))
     private StorageLocation storageLocation;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id", nullable = false)
+    private Branch branch;
 }

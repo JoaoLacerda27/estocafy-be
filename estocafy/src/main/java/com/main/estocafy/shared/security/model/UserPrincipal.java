@@ -1,5 +1,6 @@
 package com.main.estocafy.shared.security.model;
 
+import com.main.estocafy.application.domain.model.Branch;
 import com.main.estocafy.application.domain.model.Plan;
 import com.main.estocafy.application.domain.model.User;
 import com.main.estocafy.shared.security.doc.CustomUserDetails;
@@ -8,6 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class UserPrincipal implements CustomUserDetails {
@@ -36,6 +40,14 @@ public class UserPrincipal implements CustomUserDetails {
     @Override
     public Plan getPlan() {
         return user.getPlan();
+    }
+
+    public UUID getTenantId() {
+        return this.user.getTenant().getId();
+    }
+    
+    public Set<UUID> getBranchIds() {
+        return this.user.getBranches().stream().map(Branch::getId).collect(Collectors.toSet());
     }
 
     @Override
