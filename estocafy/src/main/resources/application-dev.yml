@@ -16,6 +16,23 @@ spring:
       hibernate:
         format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: estocafy
+    password: estocafy123
+    virtual-host: /
+  
+  sendgrid:
+    api-key: SENDGRID_API_KEY
+  
+  notification:
+    expiry-days: 7
+  
+  scheduler:
+    enabled: true
+    daily-check-cron: 0 0 6 * * *
 
 logging:
   level:

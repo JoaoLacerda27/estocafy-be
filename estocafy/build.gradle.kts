@@ -62,6 +62,15 @@ dependencies {
 	//Swagger
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
 
+	// RabbitMQ
+    implementation("org.springframework.boot:spring-boot-starter-amqp")
+
+    // Jackson converter for AMQP
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+
+    // SendGrid
+    implementation("com.sendgrid:sendgrid-java:4.9.3")
+
 	// Tests
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")

@@ -26,3 +26,4 @@ public interface SupplierDoc {
     @Operation(summary = "Busca um fornecedor baseado no ID")
     ResponseEntity<SupplierResponse> getById(UUID id);
 }
+

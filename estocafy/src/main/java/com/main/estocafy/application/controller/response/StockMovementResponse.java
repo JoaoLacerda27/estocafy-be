@@ -16,6 +16,14 @@ public class StockMovementResponse {
     private Instant movementDate;
     private MovementType type;
     private Long quantity;
+    private Long previousQuantity;
+    private Long resultingQuantity;
+    private String reason;
     private ProductStockResponse productStock;
     private UserResponse user;
+    private BranchResponse sourceBranch;
+    private BranchResponse targetBranch;
+    private StorageLocationResponse sourceStorage;
+    private StorageLocationResponse targetStorage;
 }
+

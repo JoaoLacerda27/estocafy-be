@@ -2,6 +2,8 @@ package com.main.estocafy.shared.exceptions;
 
 import com.main.estocafy.shared.exceptions.response.ErrorResponse;
 import com.main.estocafy.shared.exceptions.types.BusinessException;
+import com.main.estocafy.shared.exceptions.types.ExpiredBatchException;
+import com.main.estocafy.shared.exceptions.types.InsufficientStockException;
 import com.main.estocafy.shared.exceptions.types.ResourceNotFoundException;
 import com.main.estocafy.shared.exceptions.types.UnauthorizedException;
 import com.main.estocafy.shared.exceptions.types.ValidationException;
@@ -41,5 +43,17 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleBusinessException(BusinessException ex) {
         return new ErrorResponse("BUSINESS_ERROR", ex.getMessage());
+    }
+
+    @ExceptionHandler(InsufficientStockException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleInsufficientStockException(InsufficientStockException ex) {
+        return new ErrorResponse("INSUFFICIENT_STOCK_ERROR", ex.getMessage());
+    }
+
+    @ExceptionHandler(ExpiredBatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleExpiredBatchException(ExpiredBatchException ex) {
+        return new ErrorResponse("EXPIRED_BATCH_ERROR", ex.getMessage());
     }
 }

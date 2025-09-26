@@ -16,7 +16,10 @@ public class ProductStockDTO extends DtoBase {
     private LocalDate manufactureDate;
     private LocalDate expirationDate;
     private Long quantity;
+    private Integer minQuantity;
+    private Integer reservedQuantity;
     private ProductDTO product;
     private UserDTO userThatAdded;
     private StorageLocationDTO storageLocation;
+    private BranchDTO branch;
 }

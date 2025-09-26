@@ -17,3 +17,4 @@ public class SupplierDTO extends DtoBase {
     private String address;
     private String document;
 }
+

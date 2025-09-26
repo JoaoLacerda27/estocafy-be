@@ -11,6 +11,8 @@ public class ProductStockRequest {
     private LocalDate manufactureDate;
     private LocalDate expirationDate;
     private Long quantity;
+    private Integer minQuantity;
+    private Integer reservedQuantity;
     private ProductRequest product;
     private UserRequest userThatAdded;
     private StorageLocationRequest storageLocation;

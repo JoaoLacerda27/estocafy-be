@@ -7,7 +7,6 @@ import com.main.estocafy.application.repository.StorageLocationRepository;
 import com.main.estocafy.shared.exceptions.types.ResourceNotFoundException;
 import com.main.estocafy.shared.services.ServiceBase;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

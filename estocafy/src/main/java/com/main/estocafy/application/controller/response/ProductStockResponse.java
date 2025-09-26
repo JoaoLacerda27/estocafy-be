@@ -15,7 +15,10 @@ public class ProductStockResponse {
     private LocalDate manufactureDate;
     private LocalDate expirationDate;
     private Long quantity;
+    private Integer minQuantity;
+    private Integer reservedQuantity;
     private ProductResponse product;
     private UserResponse userThatAdded;
     private StorageLocationResponse storageLocation;
+    private BranchResponse branch;
 }

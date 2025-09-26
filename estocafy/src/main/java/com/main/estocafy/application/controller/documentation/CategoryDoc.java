@@ -26,3 +26,4 @@ public interface CategoryDoc {
     @Operation(summary = "Busca uma categoria baseado no ID")
     ResponseEntity<CategoryResponse> getById(UUID id);
 }
+

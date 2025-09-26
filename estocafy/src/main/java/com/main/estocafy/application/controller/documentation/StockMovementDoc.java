@@ -26,3 +26,4 @@ public interface StockMovementDoc {
     @Operation(summary = "Busca uma movimentação de estoque baseado no ID")
     ResponseEntity<StockMovementResponse> getById(UUID id);
 }
+

@@ -8,10 +8,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-public class StorageLocationDTO extends DtoBase {
-    private String code;
-    private String description;
-    private Boolean isAvailable;
-    private UserDTO user;
-    private BranchDTO branch;
+public class TenantDTO extends DtoBase {
+    private String name;
+    private String email;
+    private Boolean active;
 }

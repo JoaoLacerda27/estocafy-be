@@ -62,3 +62,4 @@ public class SupplierController implements SupplierDoc {
         return ResponseEntity.ok(mapper.map(dto, SupplierResponse.class));
     }
 }
+

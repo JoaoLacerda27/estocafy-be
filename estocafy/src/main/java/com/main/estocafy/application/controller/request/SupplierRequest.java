@@ -10,3 +10,4 @@ public class SupplierRequest {
     private String address;
     private String document;
 }
+

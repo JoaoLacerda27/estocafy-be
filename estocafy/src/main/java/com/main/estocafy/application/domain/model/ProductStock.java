@@ -51,6 +51,12 @@ public class ProductStock extends ModelBase {
     @Column
     private Long quantity;
 
+    @Column(nullable = false)
+    private Integer minQuantity = 0;
+
+    @Column(nullable = false)
+    private Integer reservedQuantity = 0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_STOCK__PRODUCT_ID"))
     private Product product;

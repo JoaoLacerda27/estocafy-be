@@ -62,3 +62,4 @@ public class CategoryController implements CategoryDoc {
         return ResponseEntity.ok(mapper.map(dto, CategoryResponse.class));
     }
 }
+

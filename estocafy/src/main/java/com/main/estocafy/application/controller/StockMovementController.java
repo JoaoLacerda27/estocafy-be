@@ -62,3 +62,4 @@ public class StockMovementController implements StockMovementDoc {
         return ResponseEntity.ok(mapper.map(dto, StockMovementResponse.class));
     }
 }
+

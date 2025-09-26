@@ -1,6 +1,7 @@
 package com.main.estocafy.application.domain.model;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -48,9 +49,8 @@ public class StockMovement extends ModelBase {
     @GenericGenerator(name = "uuid2")
     @NotNull
     protected UUID id;
-
-    @CreationTimestamp
-    private Instant movementDate;
+    @Column(nullable = false)
+    private LocalDateTime movementDate  = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -60,6 +60,15 @@ public class StockMovement extends ModelBase {
     @Column(nullable = false)
     private Long quantity;
 
+    @Column
+    private Long previousQuantity;
+
+    @Column
+    private Long resultingQuantity;
+
+    @Column(length = 500)
+    private String reason;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_stock_id", foreignKey = @ForeignKey(name = "FK_MOVEMENT__PRODUCT_STOCK_ID"))
     private ProductStock productStock;
@@ -67,5 +76,21 @@ public class StockMovement extends ModelBase {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_MOVEMENT__USER_ID"))
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "source_branch_id")
+    private Branch sourceBranch;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "target_branch_id")
+    private Branch targetBranch;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "source_storage_id")
+    private StorageLocation sourceStorage;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "target_storage_id")
+    private StorageLocation targetStorage;
     
 }

@@ -17,6 +17,14 @@ public class StockMovementDTO extends DtoBase {
     private Instant movementDate;
     private MovementType type;
     private Long quantity;
+    private Long previousQuantity;
+    private Long resultingQuantity;
+    private String reason;
     private ProductStockDTO productStock;
     private UserDTO user;
+    private BranchDTO sourceBranch;
+    private BranchDTO targetBranch;
+    private StorageLocationDTO sourceStorage;
+    private StorageLocationDTO targetStorage;
 }
+

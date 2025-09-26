@@ -13,4 +13,5 @@ public class StorageLocationResponse {
     private String description;
     private Boolean isAvailable;
     private UserResponse user;
+    private BranchResponse branch;
 }
