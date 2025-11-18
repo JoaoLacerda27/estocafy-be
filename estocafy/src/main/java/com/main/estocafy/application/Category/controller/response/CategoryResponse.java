@@ -1,0 +1,18 @@
+package com.main.estocafy.application.Category.controller.response;
+
+import lombok.Data;
+
+import java.time.Instant;
+import java.util.UUID;
+
+@Data
+public class CategoryResponse {
+    private UUID id;
+    private Instant createdAt;
+    private Instant updatedAt;
+    private UUID createdBy;
+    private UUID updatedBy;
+    private String name;
+    private String description;
+}
+

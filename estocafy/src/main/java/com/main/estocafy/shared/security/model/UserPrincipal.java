@@ -1,8 +1,8 @@
 package com.main.estocafy.shared.security.model;
 
-import com.main.estocafy.application.domain.model.Branch;
-import com.main.estocafy.application.domain.model.Plan;
-import com.main.estocafy.application.domain.model.User;
+import com.main.estocafy.application.Branch.model.Branch;
+import com.main.estocafy.application.Plan.model.Plan;
+import com.main.estocafy.application.User.model.User;
 import com.main.estocafy.shared.security.doc.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

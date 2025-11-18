@@ -1,0 +1,84 @@
+package com.main.estocafy.application.User.model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+
+import com.main.estocafy.shared.model.ModelBase;
+import com.main.estocafy.application.Plan.model.Plan;
+import com.main.estocafy.application.Role.model.Role;
+import com.main.estocafy.application.Branch.model.Branch;
+import com.main.estocafy.application.Tenant.model.Tenant;
+
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "UC_USER__EMAIL", columnNames = "email")
+        })
+public class User extends ModelBase {
+
+    @Id
+    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
+    @GeneratedValue(generator = "uuid2", strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "uuid2")
+    @NotNull
+    protected UUID id;
+
+    @NotBlank
+    @Size(max = 120)
+    @Column(nullable = false)
+    private String name;
+
+    @NotBlank
+    @Size(max = 120)
+    @Email
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Size(max = 20)
+    @Column
+    private String phone;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "plan_id", foreignKey = @ForeignKey(name = "FK_USER__PLAN_ID"))
+    private Plan plan;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", nullable = false)
+    private Tenant tenant;
+
+    @ManyToMany
+    @JoinTable(
+        name = "user_branches",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "branch_id")
+    )
+    private Set<Branch> branches = new HashSet<>();
+}
+

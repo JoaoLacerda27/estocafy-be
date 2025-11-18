@@ -1,6 +1,6 @@
 package com.main.estocafy.shared.security.service;
 
-import com.main.estocafy.application.repository.UserRepository;
+import com.main.estocafy.application.User.repository.UserRepository;
 import com.main.estocafy.shared.security.model.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

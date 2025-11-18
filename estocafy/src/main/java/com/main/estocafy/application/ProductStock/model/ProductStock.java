@@ -1,0 +1,80 @@
+package com.main.estocafy.application.ProductStock.model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.ParamDef;
+
+import com.main.estocafy.shared.model.ModelBase;
+import com.main.estocafy.application.Product.model.Product;
+import com.main.estocafy.application.User.model.User;
+import com.main.estocafy.application.StorageLocation.model.StorageLocation;
+import com.main.estocafy.application.Branch.model.Branch;
+
+import java.time.LocalDate;
+import java.util.UUID;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FilterDef(name = "tenantFilter", parameters = @ParamDef(name = "tenantId", type = String.class))
+@Filter(name = "tenantFilter", condition = "branch_id IN (SELECT b.id FROM branch b WHERE b.tenant_id = :tenantId)")
+@Table(name = "products_stock")
+public class ProductStock extends ModelBase {
+    @Id
+    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
+    @GeneratedValue(generator = "uuid2", strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "uuid2")
+    @NotNull
+    protected UUID id;
+
+    @NotBlank
+    @Size(max = 200)
+    @Column(nullable = false)
+    private String batchNumber;
+
+    @NotBlank
+    @Size(max = 200)
+    @Column(nullable = false)
+    private String shipmentCode;
+
+    @Column
+    private LocalDate manufactureDate;
+
+    @Column
+    private LocalDate expirationDate;
+
+    @Column
+    private Long quantity;
+
+    @Column(nullable = false)
+    private Integer minQuantity = 0;
+
+    @Column(nullable = false)
+    private Integer reservedQuantity = 0;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_STOCK__PRODUCT_ID"))
+    private Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_added_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_STOCK__USER_ID"))
+    private User userThatAdded;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "storage_location_id", foreignKey = @ForeignKey(name = "FK_PRODUCT_STOCK__STORAGE_LOCATION_ID"))
+    private StorageLocation storageLocation;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id", nullable = false)
+    private Branch branch;
+}
+

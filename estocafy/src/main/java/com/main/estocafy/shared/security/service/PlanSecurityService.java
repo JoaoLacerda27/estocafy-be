@@ -1,6 +1,6 @@
 package com.main.estocafy.shared.security.service;
 
-import com.main.estocafy.application.domain.enums.PlanType;
+import com.main.estocafy.application.Plan.enums.PlanType;
 import com.main.estocafy.shared.security.model.UserPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
